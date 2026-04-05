@@ -67,10 +67,11 @@ Fillet::Fillet()
     );
 
     static const char* ModeEnums[] = {"Edge", "Face", nullptr};
-    ADD_PROPERTY_TYPE(SelectionMode, (0), "Fillet", App::Prop_None, "Selection mode: Edge or Face");
+    ADD_PROPERTY_TYPE(SelectionMode, (0L), "Fillet", App::Prop_None, "Selection mode: Edge or Face");
     SelectionMode.setEnums(ModeEnums);
 
-    ADD_PROPERTY_TYPE(FaceReferences, (), "Fillet", App::Prop_None, "Face pairs for face-face fillet mode");
+    // ADD_PROPERTY_TYPE(FaceReferences, (), "Fillet", App::Prop_None, "Face pairs for face-face
+    // fillet mode");
 }
 
 short Fillet::mustExecute() const
