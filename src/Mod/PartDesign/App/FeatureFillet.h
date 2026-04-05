@@ -41,6 +41,8 @@ public:
 
     App::PropertyQuantityConstraint Radius;
     App::PropertyBool UseAllEdges;
+    App::PropertyEnumeration SelectionMode;
+    App::PropertyLinkSubList FaceReferences;
 
     /** @name methods override feature */
     //@{

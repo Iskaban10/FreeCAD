@@ -28,6 +28,7 @@
 #include <BRepFilletAPI_MakeFillet.hxx>
 #include <BRep_Tool.hxx>
 #include <Geom_Circle.hxx>
+#include <App/PropertyLinks.h>
 #include <TopoDS.hxx>
 #include <TopoDS_Edge.hxx>
 #include <TopExp_Explorer.hxx>
@@ -64,11 +65,18 @@ Fillet::Fillet()
         "If true, then this overrides any edge changes made to the Base property or in the "
         "dialog.\n"
     );
+
+    static const char* ModeEnums[] = {"Edge", "Face", nullptr};
+    ADD_PROPERTY_TYPE(SelectionMode, (0), "Fillet", App::Prop_None, "Selection mode: Edge or Face");
+    SelectionMode.setEnums(ModeEnums);
+
+    ADD_PROPERTY_TYPE(FaceReferences, (), "Fillet", App::Prop_None, "Face pairs for face-face fillet mode");
 }
 
 short Fillet::mustExecute() const
 {
-    if (Placement.isTouched() || Radius.isTouched()) {
+    if (Placement.isTouched() || Radius.isTouched() || SelectionMode.isTouched()
+        || FaceReferences.isTouched()) {
         return 1;
     }
     return DressUp::mustExecute();
